@@ -95,9 +95,6 @@ const QuestionPage = ({ onYes }: QuestionPageProps) => {
           </div>
 
           {/* Hint */}
-          <p className="text-sm text-muted-foreground">
-            Every "No" makes "Yes" bigger
-          </p>
         </div>
       </div>
     </div>
