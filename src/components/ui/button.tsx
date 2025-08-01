@@ -18,11 +18,15 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        love: "bg-gradient-to-r from-love-pink to-love-purple text-white shadow-heart hover:shadow-lg transform hover:scale-105 transition-all duration-300 font-bold",
+        loveLarge: "bg-gradient-to-r from-love-pink to-love-purple text-white shadow-heart hover:shadow-lg transform transition-all duration-500 font-bold text-lg",
+        loveNo: "bg-white/90 text-love-pink border-2 border-love-pink hover:bg-love-pink hover:text-white transition-all duration-300"
       },
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8",
+        xl: "h-16 rounded-xl px-12 text-xl",
         icon: "h-10 w-10",
       },
     },

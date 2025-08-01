@@ -1,14 +1,36 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import QuestionPage from "@/components/QuestionPage";
+import ThankYouPage from "@/components/ThankYouPage";
+import GamesPage from "@/components/GamesPage";
 
 const Index = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
-  );
+  const [currentPage, setCurrentPage] = useState<'question' | 'thank-you' | 'games'>('question');
+
+  const handleYes = () => {
+    setCurrentPage('thank-you');
+  };
+
+  const handleBackToMain = () => {
+    setCurrentPage('question');
+  };
+
+  const handleShowGames = () => {
+    setCurrentPage('games');
+  };
+
+  const handleBackFromGames = () => {
+    setCurrentPage('thank-you');
+  };
+
+  if (currentPage === 'thank-you') {
+    return <ThankYouPage onBackToMain={handleBackToMain} onShowGames={handleShowGames} />;
+  }
+
+  if (currentPage === 'games') {
+    return <GamesPage onBack={handleBackFromGames} />;
+  }
+
+  return <QuestionPage onYes={handleYes} />;
 };
 
 export default Index;
