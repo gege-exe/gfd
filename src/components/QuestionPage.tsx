@@ -89,7 +89,7 @@ const QuestionPage = ({ onYes }: QuestionPageProps) => {
 
             {noClickCount > 2 && (
               <p className="mt-6 text-love-primary text-sm">
-                The Yes button keeps growing! 😉
+                The Yes button keeps growing, maybe it's a hint! 😉
               </p>
             )}
           </div>
