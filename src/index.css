@@ -8,46 +8,39 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 340 100% 97%;
-    --foreground: 340 15% 15%;
+    --background: 0 0% 99%;
+    --foreground: 0 0% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 340 15% 15%;
+    --card-foreground: 0 0% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 340 15% 15%;
+    --popover-foreground: 0 0% 15%;
 
-    --primary: 340 82% 52%;
+    --primary: 340 75% 55%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 320 70% 85%;
-    --secondary-foreground: 340 15% 15%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 15%;
 
-    --muted: 320 30% 95%;
-    --muted-foreground: 340 15% 60%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
-    --accent: 280 100% 70%;
+    --accent: 340 75% 55%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 320 30% 90%;
-    --input: 320 30% 90%;
-    --ring: 340 82% 52%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 340 75% 55%;
 
-    --love-pink: 340 82% 52%;
-    --love-purple: 280 100% 70%;
-    --love-light: 320 70% 85%;
-    --love-bg: 340 100% 97%;
-    --heart-red: 0 84% 60%;
+    --love-primary: 340 75% 55%;
+    --love-light: 340 75% 95%;
+    --love-text: 0 0% 20%;
 
-    --gradient-romantic: linear-gradient(135deg, hsl(var(--love-pink)), hsl(var(--love-purple)));
-    --gradient-soft: linear-gradient(180deg, hsl(var(--love-bg)), hsl(var(--love-light)));
-    --shadow-heart: 0 10px 30px hsl(var(--love-pink) / 0.3);
-    --glow-love: 0 0 20px hsl(var(--love-pink) / 0.5);
-
-    --radius: 1rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -117,71 +110,21 @@ All colors MUST be HSL.
 
 @layer components {
   .heart-float {
-    animation: float 3s ease-in-out infinite;
+    animation: float 4s ease-in-out infinite;
   }
   
-  .pulse-love {
-    animation: pulse-love 2s ease-in-out infinite;
+  .minimal-card {
+    @apply bg-white rounded-xl border border-border/50 shadow-sm;
   }
   
-  .wiggle {
-    animation: wiggle 0.5s ease-in-out;
-  }
-  
-  .grow-love {
-    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  }
-  
-  .grow-love:hover {
-    transform: scale(1.1);
-  }
-  
-  .sparkle {
-    position: relative;
-  }
-  
-  .sparkle::after {
-    content: '✨';
-    position: absolute;
-    animation: sparkle 1.5s linear infinite;
+  .love-gradient {
+    background: linear-gradient(135deg, hsl(var(--love-primary)), hsl(var(--love-primary)) 60%, hsl(var(--love-light)));
   }
 }
 
 @layer utilities {
-  .gradient-romantic {
-    background: var(--gradient-romantic);
-  }
-  
-  .gradient-soft {
-    background: var(--gradient-soft);
-  }
-  
-  .shadow-heart {
-    box-shadow: var(--shadow-heart);
-  }
-  
-  .glow-love {
-    box-shadow: var(--glow-love);
-  }
-  
   @keyframes float {
     0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-  }
-  
-  @keyframes pulse-love {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-  }
-  
-  @keyframes wiggle {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(-5deg); }
-    75% { transform: rotate(5deg); }
-  }
-  
-  @keyframes sparkle {
-    0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
-    50% { opacity: 1; transform: scale(1) rotate(180deg); }
+    50% { transform: translateY(-8px); }
   }
 }

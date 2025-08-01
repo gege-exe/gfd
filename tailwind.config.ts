@@ -63,11 +63,9 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				love: {
-					pink: 'hsl(var(--love-pink))',
-					purple: 'hsl(var(--love-purple))',
+					primary: 'hsl(var(--love-primary))',
 					light: 'hsl(var(--love-light))',
-					bg: 'hsl(var(--love-bg))',
-					red: 'hsl(var(--heart-red))'
+					text: 'hsl(var(--love-text))'
 				}
 			},
 			borderRadius: {

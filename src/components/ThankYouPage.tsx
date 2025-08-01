@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Heart, Sparkles, Star, Gift } from "lucide-react";
+import { Heart, Gift } from "lucide-react";
 import celebrationImg from "@/assets/celebration.jpg";
 
 interface ThankYouPageProps {
@@ -9,108 +9,91 @@ interface ThankYouPageProps {
 }
 
 const ThankYouPage = ({ onBackToMain, onShowGames }: ThankYouPageProps) => {
-  const [confetti, setConfetti] = useState<Array<{ id: number; x: number; y: number; delay: number }>>([]);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
-    // Create confetti effect
-    const newConfetti = [...Array(50)].map((_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      delay: Math.random() * 2
-    }));
-    setConfetti(newConfetti);
+    setShowConfetti(true);
   }, []);
 
   return (
-    <div className="min-h-screen gradient-soft flex flex-col relative overflow-hidden">
-      {/* Top gradient header */}
-      <div className="gradient-romantic py-4 px-6 text-center">
-        <h1 className="text-3xl font-bold text-white">Happy Girlfriend's Day! 💕</h1>
+    <div className="min-h-screen bg-background flex flex-col">
+      {/* Header */}
+      <div className="love-gradient py-6 px-6 text-center">
+        <h1 className="text-2xl font-semibold text-white">Happy Girlfriend's Day! 💕</h1>
       </div>
       
-      <div className="flex-1 flex items-center justify-center">
-        {/* Animated confetti */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {confetti.map((piece) => (
-            <div
-              key={piece.id}
-              className="absolute animate-bounce"
-              style={{
-                left: `${piece.x}%`,
-                top: `${piece.y}%`,
-                animationDelay: `${piece.delay}s`,
-                animationDuration: `${2 + Math.random()}s`
-              }}
-            >
-              {Math.random() > 0.5 ? (
-                <Heart className="text-love-red w-4 h-4" />
-              ) : (
-                <Star className="text-love-purple w-4 h-4" />
-              )}
-            </div>
-          ))}
-        </div>
+      <div className="flex-1 flex items-center justify-center p-6">
+        {/* Subtle confetti */}
+        {showConfetti && (
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {[...Array(12)].map((_, i) => (
+              <div
+                key={i}
+                className="absolute animate-bounce opacity-60"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 2}s`,
+                  animationDuration: `${2 + Math.random()}s`
+                }}
+              >
+                <Heart className="text-love-primary w-3 h-3" />
+              </div>
+            ))}
+          </div>
+        )}
 
-        <div className="text-center z-10 max-w-4xl mx-auto px-6">
+        <div className="relative z-10 max-w-2xl mx-auto text-center">
           {/* Main celebration */}
           <div className="mb-12">
-            <h1 className="text-7xl font-bold mb-6 gradient-romantic bg-clip-text text-transparent animate-pulse">
-              OMG THANK YOU! 
+            <h1 className="text-5xl font-bold text-love-primary mb-4">
+              Thank You! 
             </h1>
-            <div className="text-6xl mb-8 animate-bounce">
-              🎉💕🎊💖🌟
+            <div className="text-4xl mb-6">
+              🎉 💕 ✨
             </div>
           </div>
 
           {/* Celebration image */}
-          <div className="mb-12">
+          <div className="mb-8">
             <img 
               src={celebrationImg} 
               alt="Celebration" 
-              className="w-full max-w-2xl mx-auto rounded-3xl shadow-heart pulse-love"
+              className="w-full max-w-md mx-auto rounded-xl"
             />
           </div>
 
           {/* Thank you message */}
-          <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-8 shadow-heart mb-12">
-            <h2 className="text-4xl font-bold text-love-pink mb-6">
-              Shreya, you made my day! 💝
+          <div className="minimal-card p-8 mb-8">
+            <h2 className="text-2xl font-semibold text-love-primary mb-4">
+              Shreya, you made my day!
             </h2>
-            <div className="text-xl text-foreground space-y-4">
-              <p>🌈 You're absolutely amazing!</p>
-              <p>✨ Thank you for being so wonderful!</p>
-              <p>💫 You light up my world every single day!</p>
-              <p>🦋 Happy Girlfriend's Day, beautiful!</p>
+            <div className="text-foreground space-y-2 text-sm">
+              <p>You're absolutely wonderful</p>
+              <p>Thank you for being amazing</p>
+              <p>You light up my world every day</p>
+              <p>Happy Girlfriend's Day! 🌟</p>
             </div>
           </div>
 
           {/* Action buttons */}
-          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-8">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               variant="love"
-              size="xl"
+              size="lg"
               onClick={onShowGames}
-              className="grow-love"
             >
-              <Gift className="w-6 h-6 mr-2" />
-              Play Fun Games! 🎮
+              <Gift className="w-4 h-4 mr-2" />
+              Play Games 🎮
             </Button>
 
             <Button
               variant="secondary"
               size="lg"
               onClick={onBackToMain}
-              className="grow-love"
             >
-              <Sparkles className="w-5 h-5 mr-2" />
               Back to Question
             </Button>
-          </div>
-
-          {/* Fun emojis */}
-          <div className="text-4xl space-x-4 animate-pulse">
-            💖 🌸 🦄 🌈 ✨ 🎀 💐 🍭
           </div>
         </div>
       </div>

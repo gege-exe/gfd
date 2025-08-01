@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Heart, ArrowLeft, Sparkles, Gift, Gamepad2 } from "lucide-react";
+import { Heart, ArrowLeft, Gift, Gamepad2 } from "lucide-react";
 
 interface GamesPageProps {
   onBack: () => void;
@@ -65,21 +65,18 @@ const GamesPage = ({ onBack }: GamesPageProps) => {
     const newPlayerSequence = [...playerSequence, emoji];
     setPlayerSequence(newPlayerSequence);
 
-    // Check if the clicked emoji is correct
     if (emoji !== memorySequence[newPlayerSequence.length - 1]) {
       setGameState('wrong');
       setTimeout(() => setGameState('ready'), 2000);
       return;
     }
 
-    // Check if player completed the sequence
     if (newPlayerSequence.length === memorySequence.length) {
       setGameState('correct');
       const newScore = score + 1;
       setScore(newScore);
       
       setTimeout(() => {
-        // Add new emoji to sequence
         const nextEmoji = emojis[Math.floor(Math.random() * emojis.length)];
         const newSequence = [...memorySequence, nextEmoji];
         setMemorySequence(newSequence);
@@ -103,65 +100,65 @@ const GamesPage = ({ onBack }: GamesPageProps) => {
 
   const getGameMessage = () => {
     switch (gameState) {
-      case 'ready': return "Click Start to begin!";
-      case 'showing': return "Watch the sequence!";
-      case 'waiting': return "Repeat the sequence!";
-      case 'correct': return `Perfect! Score: ${score + 1} 🎉`;
-      case 'wrong': return `Game Over! Final score: ${score} 💕`;
+      case 'ready': return "Click Start to begin";
+      case 'showing': return "Watch the sequence";
+      case 'waiting': return "Repeat the sequence";
+      case 'correct': return `Perfect! Score: ${score + 1}`;
+      case 'wrong': return `Game Over! Final score: ${score}`;
       default: return "";
     }
   };
 
   return (
-    <div className="min-h-screen gradient-soft flex flex-col">
-      {/* Top gradient header */}
-      <div className="gradient-romantic py-4 px-6 text-center">
-        <h1 className="text-3xl font-bold text-white">Happy Girlfriend's Day! 💕</h1>
+    <div className="min-h-screen bg-background flex flex-col">
+      {/* Header */}
+      <div className="love-gradient py-6 px-6 text-center">
+        <h1 className="text-2xl font-semibold text-white">Happy Girlfriend's Day! 💕</h1>
       </div>
       
       <div className="flex-1 p-6">
-        {/* Header */}
         <div className="max-w-4xl mx-auto">
+          {/* Navigation */}
           <div className="flex items-center justify-between mb-8">
-            <Button variant="secondary" onClick={onBack} className="grow-love">
+            <Button variant="secondary" onClick={onBack}>
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back
             </Button>
-            <h2 className="text-4xl font-bold gradient-romantic bg-clip-text text-transparent">
-              Fun Games for Shreya! 🎮
+            <h2 className="text-2xl font-semibold text-love-primary">
+              Games for Shreya
             </h2>
-            <div className="w-20"></div>
+            <div className="w-16"></div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Memory Game */}
-            <Card className="shadow-heart">
+            <Card className="minimal-card">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-love-pink">
-                  <Sparkles className="w-6 h-6" />
+                <CardTitle className="flex items-center gap-2 text-love-primary text-lg">
+                  <Gamepad2 className="w-5 h-5" />
                   Memory Game
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-muted-foreground">
-                  Remember the sequence of emojis and repeat it!
+                <p className="text-sm text-muted-foreground">
+                  Remember and repeat the emoji sequence
                 </p>
                 
-                <div className="text-center">
-                  <p className="font-semibold mb-4">{getGameMessage()}</p>
-                  <p className="text-lg">Score: {score}</p>
+                <div className="text-center space-y-2">
+                  <p className="font-medium">{getGameMessage()}</p>
+                  <p className="text-sm text-muted-foreground">Score: {score}</p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-3">
                   {emojis.map((emoji, index) => (
                     <Button
                       key={index}
                       variant="secondary"
-                      size="xl"
+                      size="lg"
                       onClick={() => handleEmojiClick(emoji)}
-                      className={`text-4xl h-20 grow-love transition-all duration-200 ${
-                        currentEmoji === emoji ? 'bg-love-pink text-white scale-110' : ''
-                      } ${gameState === 'waiting' ? 'hover:scale-105' : ''}`}
+                      className={`text-2xl h-16 transition-all duration-200 ${
+                        currentEmoji === emoji ? 'bg-love-primary text-white' : ''
+                      }`}
                       disabled={gameState !== 'waiting'}
                     >
                       {emoji}
@@ -175,31 +172,30 @@ const GamesPage = ({ onBack }: GamesPageProps) => {
                   className="w-full"
                   disabled={gameState === 'showing'}
                 >
-                  <Gamepad2 className="w-4 h-4 mr-2" />
-                  {gameState === 'ready' ? 'Start New Game' : 'Restart Game'}
+                  {gameState === 'ready' ? 'Start Game' : 'Restart'}
                 </Button>
               </CardContent>
             </Card>
 
             {/* Love Quiz */}
-            <Card className="shadow-heart">
+            <Card className="minimal-card">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-love-purple">
-                  <Heart className="w-6 h-6" />
+                <CardTitle className="flex items-center gap-2 text-love-primary text-lg">
+                  <Heart className="w-5 h-5" />
                   Love Quiz
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-muted-foreground">
-                  Answer these sweet questions!
+                <p className="text-sm text-muted-foreground">
+                  Answer these sweet questions
                 </p>
                 
                 <div className="text-center">
-                  <p className="text-lg font-semibold">Quiz Score: {quizScore}/{loveQuestions.length}</p>
+                  <p className="text-sm text-muted-foreground">Score: {quizScore}/{loveQuestions.length}</p>
                 </div>
 
-                <div className="bg-love-light/20 rounded-lg p-4">
-                  <h3 className="font-semibold mb-4 text-lg">
+                <div className="bg-love-light/30 rounded-lg p-4">
+                  <h3 className="font-medium mb-4">
                     {loveQuestions[loveQuizIndex].question}
                   </h3>
                   
@@ -209,7 +205,7 @@ const GamesPage = ({ onBack }: GamesPageProps) => {
                         key={index}
                         variant="outline"
                         onClick={() => handleQuizAnswer(index)}
-                        className="w-full text-left justify-start grow-love"
+                        className="w-full text-left justify-start text-sm"
                       >
                         {option}
                       </Button>
@@ -222,30 +218,20 @@ const GamesPage = ({ onBack }: GamesPageProps) => {
                   onClick={() => {setLoveQuizIndex(0); setQuizScore(0);}}
                   className="w-full"
                 >
-                  <Gift className="w-4 h-4 mr-2" />
                   Restart Quiz
                 </Button>
               </CardContent>
             </Card>
 
-            {/* Special Message */}
-            <Card className="shadow-heart lg:col-span-2">
-              <CardHeader>
-                <CardTitle className="flex items-center justify-center gap-2 text-love-red">
-                  <Heart className="w-6 h-6" />
-                  Special Message
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="text-center space-y-4">
-                <div className="text-2xl font-bold text-love-pink">
-                  🌟 Shreya, you're absolutely wonderful! 🌟
-                </div>
-                <p className="text-lg">
-                  Every game we play, every moment we share, makes life more beautiful! 💖
+            {/* Message */}
+            <Card className="minimal-card lg:col-span-2">
+              <CardContent className="text-center p-6">
+                <h3 className="text-lg font-semibold text-love-primary mb-2">
+                  For Shreya ✨
+                </h3>
+                <p className="text-muted-foreground">
+                  Every moment with you makes life more beautiful
                 </p>
-                <div className="text-3xl space-x-2">
-                  💝 🦋 🌸 💐 🎀 ✨ 🌈 💕
-                </div>
               </CardContent>
             </Card>
           </div>

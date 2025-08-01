@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Heart, Sparkles } from "lucide-react";
+import { Heart } from "lucide-react";
 
 interface QuestionPageProps {
   onYes: () => void;
@@ -8,12 +8,9 @@ interface QuestionPageProps {
 
 const QuestionPage = ({ onYes }: QuestionPageProps) => {
   const [noClickCount, setNoClickCount] = useState(0);
-  const [isNoShaking, setIsNoShaking] = useState(false);
 
   const handleNoClick = () => {
     setNoClickCount(prev => prev + 1);
-    setIsNoShaking(true);
-    setTimeout(() => setIsNoShaking(false), 500);
   };
 
   const getNoButtonText = () => {
@@ -23,94 +20,84 @@ const QuestionPage = ({ onYes }: QuestionPageProps) => {
 
   const getYesButtonSize = () => {
     const baseSize = 1;
-    const growth = 0.3;
+    const growth = 0.2;
     return baseSize + (noClickCount * growth);
   };
 
   return (
-    <div className="min-h-screen gradient-soft flex flex-col relative overflow-hidden">
-      {/* Top gradient header */}
-      <div className="gradient-romantic py-4 px-6 text-center">
-        <h1 className="text-3xl font-bold text-white">Happy Girlfriend's Day! 💕</h1>
+    <div className="min-h-screen bg-background flex flex-col">
+      {/* Header */}
+      <div className="love-gradient py-6 px-6 text-center">
+        <h1 className="text-2xl font-semibold text-white">Happy Girlfriend's Day! 💕</h1>
       </div>
       
-      <div className="flex-1 flex items-center justify-center">
-        {/* Floating hearts background */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(20)].map((_, i) => (
+      <div className="flex-1 flex items-center justify-center p-6">
+        {/* Subtle floating hearts */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
+          {[...Array(8)].map((_, i) => (
             <Heart
               key={i}
-              className={`absolute text-love-pink/20 heart-float w-6 h-6`}
+              className="absolute text-love-primary w-4 h-4 heart-float"
               style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${3 + Math.random() * 2}s`
+                left: `${20 + Math.random() * 60}%`,
+                top: `${20 + Math.random() * 60}%`,
+                animationDelay: `${Math.random() * 4}s`,
               }}
             />
           ))}
         </div>
 
-        <div className="text-center z-10 max-w-2xl mx-auto px-6">
-          {/* Header */}
-          <div className="mb-12">
-            <div className="flex items-center justify-center gap-2 mb-6">
-              <Sparkles className="text-love-purple w-8 h-8" />
-              <h2 className="text-4xl font-bold text-love-pink">Shreya Arya</h2>
-              <Sparkles className="text-love-purple w-8 h-8" />
-            </div>
+        <div className="relative z-10 max-w-lg mx-auto text-center">
+          {/* Name */}
+          <div className="mb-8">
+            <h2 className="text-3xl font-bold text-love-primary mb-2">Shreya Arya</h2>
+            <p className="text-muted-foreground">You make every day special ✨</p>
           </div>
 
-          {/* Question */}
-          <div className="bg-white/90 backdrop-blur-sm rounded-3xl p-12 shadow-heart mb-12">
-            <div className="mb-8">
-              <h3 className="text-3xl font-bold text-foreground mb-4">
-                Will you be my Girlfriend? 💕
-              </h3>
-              <p className="text-lg text-muted-foreground">
-                You make every day feel like a celebration! 🌟
-              </p>
-            </div>
+          {/* Question Card */}
+          <div className="minimal-card p-8 mb-8">
+            <h3 className="text-2xl font-semibold text-foreground mb-4">
+              Will you be my Girlfriend?
+            </h3>
+            <p className="text-muted-foreground mb-8">
+              You bring so much joy to my life 💫
+            </p>
 
             {/* Buttons */}
-            <div className="flex flex-col sm:flex-row gap-6 items-center justify-center">
+            <div className="flex flex-col gap-4">
               <Button
                 variant="love"
-                size="xl"
+                size="lg"
                 onClick={onYes}
-                className="grow-love pulse-love"
+                className="transition-transform duration-300"
                 style={{
                   transform: `scale(${getYesButtonSize()})`,
-                  fontSize: `${1 + noClickCount * 0.1}rem`
                 }}
               >
-                <Heart className="w-6 h-6 mr-2" />
+                <Heart className="w-4 h-4 mr-2" />
                 YES! 💖
               </Button>
 
               <Button
-                variant="loveNo"
-                size="lg"
+                variant="loveOutline"
+                size="default"
                 onClick={handleNoClick}
-                className={`${isNoShaking ? 'wiggle' : ''}`}
               >
                 {getNoButtonText()}
               </Button>
             </div>
 
             {noClickCount > 2 && (
-              <p className="mt-6 text-love-pink font-semibold animate-pulse">
-                The Yes button is getting bigger! Maybe it's a sign? 😉
+              <p className="mt-6 text-love-primary text-sm">
+                The Yes button keeps growing! 😉
               </p>
             )}
           </div>
 
-          {/* Fun fact */}
-          <div className="text-center">
-            <p className="text-lg text-muted-foreground">
-              ✨ Every click on "No" makes "Yes" grow bigger! ✨
-            </p>
-          </div>
+          {/* Hint */}
+          <p className="text-sm text-muted-foreground">
+            Every "No" makes "Yes" bigger
+          </p>
         </div>
       </div>
     </div>
